@@ -1,0 +1,155 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+        <title>Configuração</title>
+        <script type="text/javascript" >
+                function setConfig() {
+                      checkFields();
+                }
+                function checkFields() {
+                        var configData = {}
+                        var error      = false;
+                        var port       = document.getElementById("input_22").value;
+                        var baudrate   = document.getElementById("input_23").value;
+                        var parity     = document.getElementById("input_24").value;
+                        var stopbits   = document.getElementById("input_25").value;
+                        var bytesize   = document.getElementById("input_26").value;
+                        var timeout    = document.getElementById("input_27").value;
+                        if (port == '' || baudrate == '' || parity == '' || stopbits == '' || bytesize == '' || timeout == '') {
+                                error = true;
+                        }
+
+                        if (error === true) {
+                                alert('Preencha todos os campos obrigatorios');
+                        } else {
+                                configData.Port     = port;
+                                configData.BaudRate = baudrate;
+                                configData.Parity   = parity;
+                                configData.StopBits = stopbits;
+                                configData.ByteSize = bytesize;
+                                configData.Timeout  = timeout;
+                                var url = "http://localhost:5002/Config";
+                            
+                                function success() {
+                                var data = JSON.parse(this.responseText); //fazer o parsing da string para JSON
+                                        alert('Configuração Enviada')
+                                }
+
+                                // função para tratar o erro
+                                function error(err) {
+                                        alert('Erro de solicitação', err);
+                                }
+
+                                var xhr = new XMLHttpRequest();
+                                var url = "http://localhost:5002/Config";
+                                xhr.onload = success; 
+                                xhr.onerror = error;
+                                xhr.open("POST", url, true);
+                                xhr.setRequestHeader('Content-Type', 'application/json; charset=UTF-8');
+                                xhr.send(JSON.stringify(configData));
+                        }
+
+                }
+                
+        </script> 
+</head>
+
+<body>
+        <div role="main" class="form-all">
+                <style>
+                  .form-all:before
+                  {
+                    background: none;
+                  }
+                </style>
+                <ul class="form-section page-section">
+                  <li id="cid_1" class="form-input-wide" data-type="control_head">
+                    <div class="form-header-group  header-large">
+                      <div class="header-text httal htvam">
+                        <h1 id="header_1" class="form-header" data-component="header">Configuração de Balança</h1>
+                      </div>
+                    </div>
+                  </li><br><br><br>
+                  <li class="form-line jf-required" data-type="control_dropdown" id="id_22"><label class="form-label form-label-top form-label-auto" id="label_22" for="input_22"> Port<span class="form-required">*</span> </label>
+                    <div id="cid_22" class="form-input-wide jf-required" data-layout="half"> <select class="form-dropdown validate[required]" id="input_22" name="q22_port22" style="width:310px" data-component="dropdown" required="">
+                        <option value="">Selecione Um Registro</option>
+                        <option value="COM1">COM1</option>
+                        <option value="COM2">COM2</option>
+                        <option value="COM3">COM3</option>
+                        <option value="COM4">COM4</option>
+                        <option value="COM5">COM5</option>
+                        <option value="COM6">COM6</option>
+                        <option value="COM7">COM7</option>
+                        <option value="COM8">COM8</option>
+                        <option value="COM9">COM9</option>
+                        <option value="COM10">COM10</option>
+                        <option value=""></option>
+                      </select> </div>
+                  </li>
+                  <br>
+                  <li class="form-line jf-required" data-type="control_dropdown" id="id_23"><label class="form-label form-label-top form-label-auto" id="label_23" for="input_23"> BaudRate<span class="form-required">*</span> </label>
+                    <div id="cid_23" class="form-input-wide jf-required" data-layout="half"> <select class="form-dropdown validate[required]" id="input_23" name="q23_baudrate" style="width:310px" data-component="dropdown" required="">
+                        <option value="">Selecione Um Registro</option>
+                        <option value="110">110</option>
+                        <option value="300">300</option>
+                        <option value="600">600</option>
+                        <option value="1200">1200</option>
+                        <option value="2400">2400</option>
+                        <option value="4800">4800</option>
+                        <option value="9600">9600</option>
+                        <option value="14400">14400</option>
+                        <option value="19200">19200</option>
+                        <option value="38400">38400</option>
+                        <option value="57600">57600</option>
+                        <option value="115200">115200</option>
+                        <option value="128000">128000</option>
+                        <option value="256000">256000</option>
+                      </select> </div>
+                  </li>
+                  <br>
+                  <li class="form-line jf-required" data-type="control_dropdown" id="id_24"><label class="form-label form-label-top form-label-auto" id="label_24" for="input_24"> Parity<span class="form-required">*</span> </label>
+                    <div id="cid_24" class="form-input-wide jf-required" data-layout="half"> <select class="form-dropdown validate[required]" id="input_24" name="q24_parity" style="width:310px" data-component="dropdown" required="">
+                        <option value="">Selecione Um Registro</option>
+                        <option value="PARITY_EVEN">PARITY_EVEN</option>
+                        <option value="PARITY_MARK">PARITY_MARK</option>
+                        <option value="PARITY_NONE">PARITY_NONE</option>
+                        <option value="PARITY_ODD">PARITY_ODD</option>
+                        <option value="PARITY_SPACE">PARITY_SPACE</option>
+                      </select> </div>
+                  </li>
+                  <br>
+                  <li class="form-line jf-required" data-type="control_dropdown" id="id_25"><label class="form-label form-label-top form-label-auto" id="label_25" for="input_25"> StopBits<span class="form-required">*</span> </label>
+                    <div id="cid_25" class="form-input-wide jf-required" data-layout="half"> <select class="form-dropdown validate[required]" id="input_25" name="q25_stopbits25" style="width:310px" data-component="dropdown" required="">
+                        <option value="">Selecione Um Registro</option>
+                        <option value="STOPBITS_ONE">STOPBITS_ONE</option>
+                        <option value="STOPBITS_ONE_POINT_FIVE">STOPBITS_ONE_POINT_FIVE</option>
+                        <option value="STOPBITS_TWO">STOPBITS_TWO</option>
+                      </select> </div>
+                  </li>
+                  <br>
+                  <li class="form-line jf-required" data-type="control_dropdown" id="id_26"><label class="form-label form-label-top form-label-auto" id="label_26" for="input_26"> ByteSize<span class="form-required">*</span> </label>
+                    <div id="cid_26" class="form-input-wide jf-required" data-layout="half"> <select class="form-dropdown validate[required]" id="input_26" name="q26_bytesize26" style="width:310px" data-component="dropdown" required="">
+                        <option value="">Selecione Um Registro</option>
+                        <option value="EIGHTBITS">EIGHTBITS</option>
+                        <option value="SEVENBITS">SEVENBITS</option>
+                        <option value="SIXBITS">SIXBITS</option>
+                        <option value="FIVEBITS">FIVEBITS</option>
+                      </select> </div>
+                  </li>
+                  <br>
+                  <li class="form-line jf-required" data-type="control_number" id="id_27"><label class="form-label form-label-top form-label-auto" id="label_27" for="input_27"> Timeout<span class="form-required">*</span> </label>
+                    <div id="cid_27" class="form-input-wide jf-required" data-layout="half"> <input type="number" id="input_27" name="q27_timeout" data-type="input-number" class=" form-number-input form-textbox validate[required]" data-defaultvalue="" style="width:310px" size="1" value="" placeholder="por ex. 1" data-component="number" aria-labelledby="label_27" required="" step="any" /> </div>
+                  </li>
+                  <br>
+                  <li class="form-line" data-type="control_button" id="id_2">
+                    <div id="cid_2" class="form-input-wide" data-layout="full">
+                      <div data-align="left" class="form-buttons-wrapper form-buttons-left   jsTest-button-wrapperField"><button id="input_2" type="submit" class="form-submit-button submit-button jf-form-buttons jsTest-submitField" onclick="setConfig()" data-component="button" data-content="">Salvar Configuração</button></div>
+                    </div>
+                  </li>
+                </ul>
+              </div>
+              <div class="formFooter-heightMask"></div>
+</body>
+
+</html>
